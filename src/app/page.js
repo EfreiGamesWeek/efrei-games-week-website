@@ -38,9 +38,9 @@ export default function Home() {
     }
   }, 1000);
   return (
-    <main>
-      <section className=" flex flex-col gap-4 justify-center items-center h-[90dvh] text-center mx-8">
-        <h2 className="md:text-2xl text-xl font-bold">
+    <main className="flex flex-col align-middle justify-center">
+      <section className="flex flex-col gap-4 justify-center items-center h-[90dvh] text-center mx-8">
+        <main className="max-w-7xl"><h2 className="md:text-2xl text-xl font-bold">
           La GameJam nationale commence dans :
         </h2>
         <h1 className="md:text-8xl text-5xl font-extrabold">
@@ -54,16 +54,24 @@ export default function Home() {
             En savoir plus
           </h2>
           <Button variant="ghost" className="w-fit h-fit">
-            <ArrowDownFromLine className="h-8! w-8!" />
+            <ArrowDownFromLine className="h-6! w-6!" />
           </Button>
-        </footer>
+        </footer></main>
+        
       </section>
       <section className="flex flex-col gap-4 p-16 justify-center items-center text-center bg-primary text-primary-foreground">
-        <h2 className="text-2xl font-bold">
+        <main className="max-w-7xl"><h2 className="text-2xl font-bold mb-8">
           Votre GameJam, qu'est ce que c'est ?
         </h2>
-        <p className="">La GameJam</p>
-      </section>
+        <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Placerat auctor nostra posuere torquent sociosqu. Porttitor dictum ullamcorper varius eleifend litora. Conubia tristique pharetra vitae pulvinar gravida etiam proin tincidunt. Interdum nulla quisque neque gravida, ultricies ad eu. Nisl primis hendrerit vivamus ullamcorper vulputate pulvinar viverra.
+<br />
+<br />
+Id conubia tortor tellus ipsum litora euismod consectetur etiam. Quis malesuada molestie nostra nunc sem. Lacinia lectus facilisis eget augue? Integer blandit fringilla aptent conubia rutrum sagittis fames. Eu semper nibh cras mattis hendrerit hendrerit.
+<br />
+<br />
+Mus mauris facilisis nunc potenti efficitur conubia! Blandit nibh donec vulputate consequat lacinia natoque. Ultricies finibus eget torquent eget adipiscing. Imperdiet risus feugiat ut mollis elit netus. Est libero donec interdum tristique inceptos. Egestas mus mattis molestie dignissim nisl sollicitudin. Efficitur ac fusce augue eros semper.</p>
+      </main>
+        </section>
     </main>
   );
 }

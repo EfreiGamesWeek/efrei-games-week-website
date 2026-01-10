@@ -2,8 +2,8 @@ import { Button } from "./ui/button";
 
 export default function NavbarComputer() {
   return (
-    <main className="p-3 bg-primary text-primary-foreground flex max-h-24 items-center z-50">
-      <section className="text-center h-20 flex-1/4" id="logo">
+    <main className="flex justify-center p-3 bg-primary text-primary-foreground max-h-24 items-center z-50">
+    <section className="max-w-7xl flex items-center gap-70"><section className="text-center h-20 flex-1/4" id="logo">
         <img src="/baseLogo.png" className="h-full"></img>
       </section>
       <section
@@ -21,7 +21,8 @@ export default function NavbarComputer() {
       >
         <Button variant="outline">S'inscrire</Button>
         <Button variant="secondary">Se connecter</Button>
-      </section>
+      </section></section>
+      
     </main>
   );
 }
