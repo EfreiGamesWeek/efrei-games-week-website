@@ -13,7 +13,7 @@ export default function News() {
         <main className="flex flex-col align-middle justify-center">
             <section className="flex px-8 py-16 justify-center items-center text-center">
                 <main className="max-w-7xl">
-                    <h2 className="text-2xl font-bold mb-8">
+                    <h2 className="text-4xl font-bold mb-8 font-hungry">
                         Les dernières informations
                     </h2>
                     <section className="flex gap-4 w-full justify-center mb-8 flex-wrap">
