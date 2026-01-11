@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowDownFromLine } from "lucide-react";
 import Autoplay from "embla-carousel-autoplay";
@@ -25,6 +25,13 @@ export default function Home() {
     var countDownDate = new Date("Feb 5, 2026 19:30:00").getTime();
     const [countDownTimer, setCountDownTimer] = useState("");
     const plugin = React.useRef(Autoplay({ delay: 2000 }));
+
+    const infoRef = useRef(null);
+    const scrollToElement = () => {
+        if (infoRef.current) {
+            infoRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    };
 
     var x = setInterval(function () {
         var now = new Date().getTime();
@@ -53,42 +60,45 @@ export default function Home() {
         }
     }, 1000);
     return (
-        <main className="flex flex-col align-middle justify-center">
-            <section className="flex flex-col gap-4 justify-center items-center h-[90dvh] text-center mx-8">
+        <main className="flex flex-col align-middle justify-center scroll-beha">
+            <section className="flex flex-col gap-4 justify-center items-center h-[90dvh] text-center mx-8 font-hungry">
                 <main className="max-w-7xl">
-                    <h2 className="md:text-2xl text-xl font-bold">
+                    <h2 className="md:text-5xl text-2xl font-bold">
                         La GameJam nationale commence dans :
                     </h2>
-                    <h1 className="md:text-8xl text-5xl font-extrabold">
+                    <h1 className="md:text-9xl text-5xl font-extrabold">
                         {countDownTimer}
                     </h1>
-                    <Button className="mt-4 w-40 md:text-xl text-lg h-12 cursor-pointer">
+                    <Button className="mt-4 w-40 md:text-3xl text-xl h-12 cursor-pointer">
                         S'inscrire
                     </Button>
                     <footer className="flex flex-col items-center transition-[filter] duration-300 hover:drop-shadow-(--drop-shadow-primary) cursor-pointer">
-                        <h2 className="md:text-lg text-sm font-semibold mt-4">
-                            En savoir plus
-                        </h2>
-                        <Link href="#" className="w-fit h-fit ">
+                        <Link
+                            href=""
+                            className="w-fit h-fit items-center flex flex-col justify-center"
+                            scroll={false}
+                            onClick={scrollToElement}
+                        >
+                            <h2 className="md:text-2xl text-sm font-semibold mt-4">
+                                En savoir plus
+                            </h2>
                             <ArrowDownFromLine size={30} />
                         </Link>
                     </footer>
                 </main>
             </section>
 
-            <section className="flex flex-col gap-4 px-8 py-16 justify-center items-center text-center bg-primary text-primary-foreground">
+            <section
+                ref={infoRef}
+                className="flex flex-col gap-4 px-8 py-16 justify-center items-center text-center bg-primary text-primary-foreground"
+            >
                 <main className="max-w-7xl">
-                    <h2 className="text-2xl font-bold mb-8">
+                    <h2 className="text-4xl font-bold mb-8 font-hungry">
                         Votre GameJam, qu'est ce que c'est ?
                     </h2>
-                    <p>
-                        Lorem ipsum odor amet, consectetuer adipiscing elit.
-                        Placerat auctor nostra posuere torquent sociosqu.
-                        Porttitor dictum ullamcorper varius eleifend litora.
-                        Conubia tristique pharetra vitae pulvinar gravida etiam
-                        proin tincidunt. Interdum nulla quisque neque gravida,
-                        ultricies ad eu. Nisl primis hendrerit vivamus
-                        ullamcorper vulputate pulvinar viverra.
+                    <p className="tracking-tight">
+                        La GameJam de Efrei Games Week est l'évenement jeu vidéo
+                        à ne pas manquer.
                         <br />
                         <br />
                         Id conubia tortor tellus ipsum litora euismod
@@ -111,7 +121,7 @@ export default function Home() {
 
             <section className="flex px-8 py-16 justify-center items-center text-center">
                 <main className="max-w-7xl">
-                    <h2 className="text-2xl font-bold mb-8">
+                    <h2 className="text-4xl font-bold mb-8 font-hungry">
                         Les dernières informations
                     </h2>
                     <section className="flex gap-4 mb-8">
@@ -168,7 +178,7 @@ export default function Home() {
                     </section>
                     <footer className="flex justify-end">
                         <Link
-                            href="#"
+                            href="/news"
                             className="relative after:bg-primary after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
                         >
                             Voir toutes les informations
@@ -178,7 +188,7 @@ export default function Home() {
             </section>
 
             <section className="flex flex-col gap-4 py-16 justify-center items-center text-center bg-primary text-primary-foreground">
-                <h2 className="text-2xl font-bold mb-8">
+                <h2 className="text-4xl font-bold mb-8 font-hungry">
                     Les associations partenaires
                 </h2>
                 <Carousel

@@ -16,7 +16,7 @@ import { Separator } from "./ui/separator";
 export default function NavbarPhone() {
     return (
         <Drawer direction="right">
-            <section className="flex bg-primary justify-between items-center text-center h-20 flex-1/4">
+            <section className="flex bg-primary justify-between items-center text-center h-20 flex-1/4 font-hungry">
                 <img src="/baseLogo.png" className="h-full"></img>
                 <DrawerTrigger asChild>
                     <MenuIcon className="m-4 text-primary-foreground" />

@@ -5,9 +5,9 @@ import NavbarPhone from "./NavbarPhone";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
 export default function Navbar() {
-  return useMediaQuery("(min-width: 768px)") ? (
-    <NavbarComputer />
-  ) : (
-    <NavbarPhone />
-  );
+    return useMediaQuery("(min-width: 768px)") ? (
+        <NavbarComputer />
+    ) : (
+        <NavbarPhone />
+    );
 }
