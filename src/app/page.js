@@ -60,7 +60,7 @@ export default function Home() {
         }
     }, 1000);
     return (
-        <main className="flex flex-col align-middle justify-center scroll-beha">
+        <main className="flex flex-col align-middle justify-center">
             <section className="flex flex-col gap-4 justify-center items-center h-[90dvh] text-center mx-8 font-hungry">
                 <main className="max-w-7xl">
                     <h2 className="md:text-5xl text-2xl font-bold">

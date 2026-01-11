@@ -29,8 +29,9 @@ export default function NavbarComputer() {
                     <Button
                         variant="ghostSecondary"
                         className="cursor-pointer text-2xl"
+                        asChild
                     >
-                        Leaderboard
+                        <Link href="/leaderboard">Leaderboard</Link>
                     </Button>
                     <Button
                         variant="ghostSecondary"
