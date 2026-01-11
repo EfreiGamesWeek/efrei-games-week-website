@@ -11,6 +11,7 @@ import {
 
 import { Button } from "./ui/button";
 import { MenuIcon } from "lucide-react";
+import { Separator } from "./ui/separator";
 
 export default function NavbarPhone() {
     return (
@@ -21,16 +22,31 @@ export default function NavbarPhone() {
                     <MenuIcon className="m-4 text-primary-foreground" />
                 </DrawerTrigger>
             </section>
-            <DrawerContent className="bg-primary text-primary-foreground gap-8 p-3 flex flex-col justify-between items-center">
+            <DrawerContent className="bg-primary text-primary-foreground gap-8 p-10 flex flex-col justify-between items-center">
                 <DrawerTitle className="sr-only">Menu</DrawerTitle>
+                <section>
+                    <h2 className="font-bold text-xl">Menu</h2>
+                </section>
                 <section
-                    className="flex flex-col justify-center text-center gap-4"
+                    className="flex w-full flex-col justify-center text-center gap-4"
                     id="navigation"
                 >
-                    <Button variant="ghostSecondary">Home</Button>
-                    <Button variant="ghostSecondary">News</Button>
-                    <Button variant="ghostSecondary">Leaderboard</Button>
-                    <Button variant="ghostSecondary">Teams</Button>
+                    <div>
+                        <Button variant="ghostSecondary">Home</Button>
+                        <Separator className="m-0 bg-border/40" />
+                    </div>
+                    <div>
+                        <Button variant="ghostSecondary">News</Button>
+                        <Separator className="m-0 bg-border/40" />
+                    </div>
+                    <div>
+                        <Button variant="ghostSecondary">Leaderboard</Button>
+                        <Separator className="m-0 bg-border/40" />
+                    </div>
+                    <div>
+                        <Button variant="ghostSecondary">Teams</Button>
+                        <Separator className="m-0 bg-border/40" />
+                    </div>
                 </section>
                 <section
                     className="flex flex-col text-center justify-end gap-4 "
