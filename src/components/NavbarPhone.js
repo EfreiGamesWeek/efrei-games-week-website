@@ -9,6 +9,8 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer";
 
+import Link from "next/link";
+
 import { Button } from "./ui/button";
 import { MenuIcon } from "lucide-react";
 import { Separator } from "./ui/separator";
@@ -32,15 +34,21 @@ export default function NavbarPhone() {
                     id="navigation"
                 >
                     <div>
-                        <Button variant="ghostSecondary">Home</Button>
+                        <Button variant="ghostSecondary" asChild>
+                            <Link href="/">Home</Link>
+                        </Button>
                         <Separator className="m-0 bg-border/40" />
                     </div>
                     <div>
-                        <Button variant="ghostSecondary">News</Button>
+                        <Button variant="ghostSecondary" asChild>
+                            <Link href="/news">News</Link>
+                        </Button>
                         <Separator className="m-0 bg-border/40" />
                     </div>
                     <div>
-                        <Button variant="ghostSecondary">Leaderboard</Button>
+                        <Button variant="ghostSecondary" asChild>
+                            <Link href="/leaderboard">Leaderboard</Link>
+                        </Button>
                         <Separator className="m-0 bg-border/40" />
                     </div>
                     <div>
