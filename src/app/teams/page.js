@@ -28,6 +28,17 @@ async function updateTeamById(name, description, idTeam) {
             description: description,
         }),
     }).then((res) => res.json);
+    return result;
+}
+
+async function deleteTeamById(idTeam) {
+    "use server";
+    const result = await fetch("http://localhost:8000/teams/" + idTeam, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    }).then((res) => res.json);
     console.log(result);
     return result;
 }
@@ -37,6 +48,7 @@ export default function Team() {
         <TeamsPage
             createNewTeam={createNewTeam}
             updateTeamById={updateTeamById}
+            deleteTeamById={deleteTeamById}
         />
     );
 }

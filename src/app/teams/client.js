@@ -25,7 +25,11 @@ import { Input } from "@/components/ui/input";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
 
-export default function TeamsPage({ createNewTeam, updateTeamById }) {
+export default function TeamsPage({
+    createNewTeam,
+    updateTeamById,
+    deleteTeamById,
+}) {
     const [userInfo, setUserInfo] = useState(null);
     const [allTeamsInfo, setAllTeamsInfo] = useState(null);
     const [myTeamInfo, setMyTeamInfo] = useState(null);
@@ -87,7 +91,9 @@ export default function TeamsPage({ createNewTeam, updateTeamById }) {
                                         <CardContent className="w-full!">
                                             {myTeamInfo.description}
                                         </CardContent>
-                                        <CardFooter>
+                                        <CardFooter
+                                            className={"flex justify-center"}
+                                        >
                                             <DialogTrigger asChild>
                                                 <Button className="cursor-pointer">
                                                     Modifier mon équipe
@@ -289,7 +295,18 @@ export default function TeamsPage({ createNewTeam, updateTeamById }) {
                 </main>
                 <DialogFooter>
                     <section className="flex justify-between w-full">
-                        <Button type="submit">Supprimer l'équipe</Button>
+                        {myTeamInfo == null ? null : (
+                            <Button
+                                type="submit"
+                                onClick={() => {
+                                    deleteTeamById(myTeamInfo._id);
+                                    window.location.reload();
+                                }}
+                            >
+                                Supprimer l'équipe
+                            </Button>
+                        )}
+
                         <div className="ml-auto flex gap-2">
                             <DialogClose asChild>
                                 <Button variant="outline">Annuler</Button>
