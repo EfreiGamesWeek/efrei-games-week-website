@@ -1,9 +1,23 @@
+"use client";
+
+import { getUserInfo } from "@/middleware/auth";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function NavbarComputer() {
+    const [userInfo, setUserInfo] = useState(null);
+    useEffect(() => {
+        async function fetchData() {
+            const response = await getUserInfo();
+            setUserInfo(response);
+            console.log(response);
+        }
+        fetchData();
+    }, []);
     return (
-        <main className="flex justify-center p-3 bg-primary text-primary-foreground max-h-24 items-center z-50 font-hungry">
+        <main className="flex justify-center p-3 bg-primary text-primary-foreground mb-16 max-h-24 items-center z-50 font-hungry">
             <section className="flex items-center w-screen">
                 <section
                     className="text-center h-20 flex-1 flex justify-center mr-auto"
@@ -37,25 +51,44 @@ export default function NavbarComputer() {
                         variant="ghostSecondary"
                         className="cursor-pointer text-2xl"
                     >
-                        Teams
+                        <Link href="/teams">Teams</Link>
                     </Button>
+                    {userInfo != null && userInfo.admin == true ? (
+                        <Button
+                            variant="ghostSecondary"
+                            className="cursor-pointer text-2xl"
+                        >
+                            <Link href="/admin">Panel Admin</Link>
+                        </Button>
+                    ) : null}
                 </section>
                 <section
                     className="flex-1 flex justify-center ml-auto text-center gap-4"
                     id="login"
                 >
-                    <Button
-                        variant="outline"
-                        className="cursor-pointer text-2xl"
-                    >
-                        S'inscrire
-                    </Button>
-                    <Button
-                        variant="secondary"
-                        className="cursor-pointer text-2xl"
-                    >
-                        Se connecter
-                    </Button>
+                    {userInfo == null ? (
+                        <Link
+                            href={"http://localhost:8000/users/discord/login"}
+                        >
+                            <Button
+                                variant="secondary"
+                                className="cursor-pointer text-2xl"
+                            >
+                                Se connecter via Discord
+                            </Button>
+                        </Link>
+                    ) : (
+                        <Link href="/profile">
+                            <Avatar className={"w-16 h-16"}>
+                                <AvatarImage
+                                    src={`https://cdn.discordapp.com/avatars/${userInfo.discordID}/${userInfo.avatar}`}
+                                />
+                                <AvatarFallback>
+                                    {userInfo.username}
+                                </AvatarFallback>
+                            </Avatar>
+                        </Link>
+                    )}
                 </section>
             </section>
         </main>
