@@ -25,11 +25,10 @@ import { Input } from "@/components/ui/input";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
 
-export default function TeamsPage({ createNewTeam }) {
+export default function TeamsPage({ createNewTeam, updateTeamById }) {
     const [userInfo, setUserInfo] = useState(null);
     const [allTeamsInfo, setAllTeamsInfo] = useState(null);
     const [myTeamInfo, setMyTeamInfo] = useState(null);
-    const [valid, setValid] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
@@ -51,12 +50,19 @@ export default function TeamsPage({ createNewTeam }) {
     }, []);
 
     async function createOrUpdateTeams() {
-        const result = createNewTeam(
-            document.getElementById("teamName").value,
-            document.getElementById("descTeam").value,
-            userInfo._id
-        );
-        console.log(result);
+        if (myTeamInfo == null) {
+            createNewTeam(
+                document.getElementById("teamName").value,
+                document.getElementById("descTeam").value,
+                userInfo._id
+            );
+        } else {
+            updateTeamById(
+                document.getElementById("teamName").value,
+                document.getElementById("descTeam").value,
+                myTeamInfo._id
+            );
+        }
         window.location.reload();
     }
     return (
@@ -82,7 +88,11 @@ export default function TeamsPage({ createNewTeam }) {
                                             {myTeamInfo.description}
                                         </CardContent>
                                         <CardFooter>
-                                            <Button>Modifier mon équipe</Button>
+                                            <DialogTrigger asChild>
+                                                <Button className="cursor-pointer">
+                                                    Modifier mon équipe
+                                                </Button>
+                                            </DialogTrigger>
                                         </CardFooter>
                                     </Card>
                                 </section>
@@ -229,33 +239,66 @@ export default function TeamsPage({ createNewTeam }) {
                     </DialogDescription>
                 </DialogHeader>
                 <main>
-                    <Field className="pb-4">
-                        <FieldLabel htmlFor="teamName">
-                            Nom de l'équipe *
-                        </FieldLabel>
-                        <Input
-                            id="teamName"
-                            required
-                            placeholder="Le nom de votre équipe"
-                        ></Input>
-                    </Field>
-                    <Field>
-                        <FieldLabel htmlFor="teamName">
-                            Description de l'équipe
-                        </FieldLabel>
-                        <Textarea
-                            id="descTeam"
-                            placeholder="La description de votre équipe"
-                        ></Textarea>
-                    </Field>
+                    {myTeamInfo == null ? (
+                        <div>
+                            <Field className="pb-4">
+                                <FieldLabel htmlFor="teamName">
+                                    Nom de l'équipe *
+                                </FieldLabel>
+                                <Input
+                                    id="teamName"
+                                    required
+                                    placeholder="Le nom de votre équipe"
+                                ></Input>
+                            </Field>
+                            <Field>
+                                <FieldLabel htmlFor="teamName">
+                                    Description de l'équipe
+                                </FieldLabel>
+                                <Textarea
+                                    id="descTeam"
+                                    placeholder="La description de votre équipe"
+                                ></Textarea>
+                            </Field>
+                        </div>
+                    ) : (
+                        <div>
+                            <Field className="pb-4">
+                                <FieldLabel htmlFor="teamName">
+                                    Nom de l'équipe *
+                                </FieldLabel>
+                                <Input
+                                    defaultValue={myTeamInfo.name}
+                                    id="teamName"
+                                    required
+                                    placeholder="Le nom de votre équipe"
+                                ></Input>
+                            </Field>
+                            <Field>
+                                <FieldLabel htmlFor="teamName">
+                                    Description de l'équipe
+                                </FieldLabel>
+                                <Textarea
+                                    defaultValue={myTeamInfo.description}
+                                    id="descTeam"
+                                    placeholder="La description de votre équipe"
+                                ></Textarea>
+                            </Field>
+                        </div>
+                    )}
                 </main>
                 <DialogFooter>
-                    <DialogClose asChild>
-                        <Button variant="outline">Cancel</Button>
-                    </DialogClose>
-                    <Button type="submit" onClick={createOrUpdateTeams}>
-                        Save changes
-                    </Button>
+                    <section className="flex justify-between w-full">
+                        <Button type="submit">Supprimer l'équipe</Button>
+                        <div className="ml-auto flex gap-2">
+                            <DialogClose asChild>
+                                <Button variant="outline">Annuler</Button>
+                            </DialogClose>
+                            <Button type="submit" onClick={createOrUpdateTeams}>
+                                Sauvergarder
+                            </Button>
+                        </div>
+                    </section>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
