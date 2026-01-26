@@ -2,6 +2,7 @@
 
 import { getUserInfo } from "@/middleware/auth";
 import Link from "next/link";
+import { Plus, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
     Card,
@@ -33,6 +34,7 @@ export default function TeamsPage({
     const [userInfo, setUserInfo] = useState(null);
     const [allTeamsInfo, setAllTeamsInfo] = useState(null);
     const [myTeamInfo, setMyTeamInfo] = useState(null);
+    const [members, setMembers] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -40,13 +42,16 @@ export default function TeamsPage({
             setUserInfo(response);
             if (response != null) {
                 const responseTeam = await fetch(
-                    "http://localhost:8000/teams/" + response._id
+                    "http://localhost:8000/teams/" + response._id,
                 ).then((resp) => resp.json());
                 setMyTeamInfo(responseTeam.body);
+                setMembers(JSON.parse(responseTeam.body.members));
             }
         }
         async function fetchTeams() {
-            const response = await fetch("http://localhost:8000/teams/");
+            const response = await fetch("http://localhost:8000/teams/").then(
+                (resp) => resp.json(),
+            );
             setAllTeamsInfo(response);
         }
         fetchData();
@@ -58,13 +63,14 @@ export default function TeamsPage({
             createNewTeam(
                 document.getElementById("teamName").value,
                 document.getElementById("descTeam").value,
-                userInfo._id
+                userInfo._id,
             );
         } else {
             updateTeamById(
                 document.getElementById("teamName").value,
                 document.getElementById("descTeam").value,
-                myTeamInfo._id
+                JSON.stringify(members),
+                myTeamInfo._id,
             );
         }
         window.location.reload();
@@ -112,7 +118,7 @@ export default function TeamsPage({
                                         </CardHeader>
                                         <CardContent>
                                             <DialogTrigger asChild>
-                                                <Button>
+                                                <Button className="cursor-pointer">
                                                     Créer mon équipe
                                                 </Button>
                                             </DialogTrigger>
@@ -129,110 +135,23 @@ export default function TeamsPage({
                             Toutes les équipes
                         </h2>
                         <section className="flex gap-4 w-full justify-center mb-8 flex-wrap">
-                            <Card className="md:flex-1/4 md:basis-[30%] md:grow-0">
-                                <CardHeader>
-                                    <h3 className="text-xl font-semibold">
-                                        Nom équipe
-                                    </h3>
-                                </CardHeader>
-                                <CardContent>
-                                    Mus mauris facilisis nunc potenti efficitur
-                                    conubia! Blandit nibh donec vulputate
-                                    consequat lacinia natoque. Ultricies finibus
-                                    eget torquent eget adipiscing. Imperdiet
-                                    risus feugiat ut mollis elit netus. Est
-                                    libero donec interdum tristique inceptos.
-                                    Egestas mus mattis molestie dignissim nisl
-                                    sollicitudin. Efficitur ac fusce augue eros
-                                    semper.
-                                </CardContent>
-                                <CardFooter className="flex justify-end text-sm">
-                                    <Link
-                                        href="#"
-                                        className="relative after:bg-primary after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
-                                    >
-                                        En savoir plus
-                                    </Link>
-                                </CardFooter>
-                            </Card>
-                            <Card className="md:flex-1/4 md:basis-[30%] md:grow-0">
-                                <CardHeader>
-                                    <h4 className="text-xl font-semibold">
-                                        Les inscriptions sont lancées
-                                    </h4>
-                                </CardHeader>
-                                <CardContent>
-                                    Mus mauris facilisis nunc potenti efficitur
-                                    conubia! Blandit nibh donec vulputate
-                                    consequat lacinia natoque. Ultricies finibus
-                                    eget torquent eget adipiscing. Imperdiet
-                                    risus feugiat ut mollis elit netus. Est
-                                    libero donec interdum tristique inceptos.
-                                    Egestas mus mattis molestie dignissim nisl
-                                    sollicitudin. Efficitur ac fusce augue eros
-                                    semper.
-                                </CardContent>
-                                <CardFooter className="flex justify-end text-sm">
-                                    <Link
-                                        href="#"
-                                        className="relative after:bg-primary after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
-                                    >
-                                        En savoir plus
-                                    </Link>
-                                </CardFooter>
-                            </Card>
-                            <Card className="md:flex-1/4 md:basis-[30%] md:grow-0">
-                                <CardHeader>
-                                    <h4 className="text-xl font-semibold">
-                                        Les inscriptions sont lancées
-                                    </h4>
-                                </CardHeader>
-                                <CardContent>
-                                    Mus mauris facilisis nunc potenti efficitur
-                                    conubia! Blandit nibh donec vulputate
-                                    consequat lacinia natoque. Ultricies finibus
-                                    eget torquent eget adipiscing. Imperdiet
-                                    risus feugiat ut mollis elit netus. Est
-                                    libero donec interdum tristique inceptos.
-                                    Egestas mus mattis molestie dignissim nisl
-                                    sollicitudin. Efficitur ac fusce augue eros
-                                    semper.
-                                </CardContent>
-                                <CardFooter className="flex justify-end text-sm">
-                                    <Link
-                                        href="#"
-                                        className="relative after:bg-primary after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
-                                    >
-                                        En savoir plus
-                                    </Link>
-                                </CardFooter>
-                            </Card>
-                            <Card className="md:flex-1/4 md:basis-[30%] md:grow-0">
-                                <CardHeader>
-                                    <h4 className="text-xl font-semibold">
-                                        Les inscriptions sont lancées
-                                    </h4>
-                                </CardHeader>
-                                <CardContent>
-                                    Mus mauris facilisis nunc potenti efficitur
-                                    conubia! Blandit nibh donec vulputate
-                                    consequat lacinia natoque. Ultricies finibus
-                                    eget torquent eget adipiscing. Imperdiet
-                                    risus feugiat ut mollis elit netus. Est
-                                    libero donec interdum tristique inceptos.
-                                    Egestas mus mattis molestie dignissim nisl
-                                    sollicitudin. Efficitur ac fusce augue eros
-                                    semper.
-                                </CardContent>
-                                <CardFooter className="flex justify-end text-sm">
-                                    <Link
-                                        href="#"
-                                        className="relative after:bg-primary after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
-                                    >
-                                        En savoir plus
-                                    </Link>
-                                </CardFooter>
-                            </Card>
+                            {allTeamsInfo != null
+                                ? allTeamsInfo.map((ele, idx) => (
+                                      <Card key={idx}>
+                                          <CardHeader>
+                                              <h4 className="text-xl font-semibold">
+                                                  {ele.name}
+                                              </h4>
+                                          </CardHeader>
+                                          <CardContent className={"w-full!"}>
+                                              {ele.description}
+                                          </CardContent>
+                                          <CardFooter className="flex justify-end text-sm">
+                                              Score : {ele.numberOfPoints}
+                                          </CardFooter>
+                                      </Card>
+                                  ))
+                                : null}
                         </section>
                     </main>
                 </section>
@@ -290,6 +209,102 @@ export default function TeamsPage({
                                     placeholder="La description de votre équipe"
                                 ></Textarea>
                             </Field>
+                            <section>
+                                <header className="flex justify-between items-end">
+                                    <h3 className={"mt-6 mb-2 font-bold"}>
+                                        Membres de l'équipe
+                                    </h3>
+                                    <Button
+                                        className={"cursor-pointer"}
+                                        disabled={members.length > 2}
+                                        onClick={() => {
+                                            if (members.length < 3) {
+                                                setMembers([
+                                                    ...members,
+                                                    ["", ""],
+                                                ]);
+                                            }
+                                        }}
+                                        variant="outline"
+                                        size="icon"
+                                    >
+                                        <Plus />
+                                    </Button>
+                                </header>
+                                <Field>
+                                    <FieldLabel htmlFor="membre">
+                                        Membre 1
+                                    </FieldLabel>
+                                    <div id="membre" className="flex gap-2">
+                                        <Input
+                                            defaultValue={userInfo.name}
+                                            disabled
+                                            required
+                                            placeholder="Prénom"
+                                        ></Input>
+                                        <Input
+                                            defaultValue={userInfo.surname}
+                                            required
+                                            disabled
+                                            placeholder="Nom"
+                                        ></Input>
+                                    </div>
+                                </Field>
+                                {members.map((ele, idx) => (
+                                    <Field key={idx} className={"mt-2"}>
+                                        <FieldLabel htmlFor={"member" + idx}>
+                                            Membre {idx + 2}
+                                        </FieldLabel>
+                                        <div
+                                            id={"member" + idx}
+                                            className="flex gap-2"
+                                        >
+                                            <Input
+                                                value={members[idx][0]}
+                                                onChange={(e) => {
+                                                    const newMembers =
+                                                        members.slice();
+                                                    newMembers[idx][0] =
+                                                        e.target.value;
+                                                    setMembers(newMembers);
+                                                }}
+                                                placeholder="Prénom"
+                                            ></Input>
+                                            <Input
+                                                value={members[idx][1]}
+                                                onChange={(e) => {
+                                                    const newMembers =
+                                                        members.slice();
+                                                    newMembers[idx][1] =
+                                                        e.target.value;
+                                                    setMembers(newMembers);
+                                                }}
+                                                placeholder="Nom"
+                                            ></Input>
+                                            <Button
+                                                className={"cursor-pointer"}
+                                                onClick={() => {
+                                                    setMembers(
+                                                        members.filter(
+                                                            (element) =>
+                                                                JSON.stringify(
+                                                                    element,
+                                                                ) !=
+                                                                JSON.stringify(
+                                                                    ele,
+                                                                ),
+                                                        ),
+                                                    );
+                                                }}
+                                                variant="outline"
+                                                size="icon"
+                                            >
+                                                <Trash2 />
+                                            </Button>
+                                        </div>
+                                    </Field>
+                                ))}
+                            </section>
                         </div>
                     )}
                 </main>
@@ -298,6 +313,7 @@ export default function TeamsPage({
                         {myTeamInfo == null ? null : (
                             <Button
                                 type="submit"
+                                className={"cursor-pointer"}
                                 onClick={() => {
                                     deleteTeamById(myTeamInfo._id);
                                     window.location.reload();
@@ -309,9 +325,18 @@ export default function TeamsPage({
 
                         <div className="ml-auto flex gap-2">
                             <DialogClose asChild>
-                                <Button variant="outline">Annuler</Button>
+                                <Button
+                                    variant="outline"
+                                    className={"cursor-pointer"}
+                                >
+                                    Annuler
+                                </Button>
                             </DialogClose>
-                            <Button type="submit" onClick={createOrUpdateTeams}>
+                            <Button
+                                type="submit"
+                                className={"cursor-pointer"}
+                                onClick={createOrUpdateTeams}
+                            >
                                 Sauvergarder
                             </Button>
                         </div>

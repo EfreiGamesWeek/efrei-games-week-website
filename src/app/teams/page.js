@@ -16,7 +16,7 @@ async function createNewTeam(name, description, userId) {
     return result;
 }
 
-async function updateTeamById(name, description, idTeam) {
+async function updateTeamById(name, description, members, idTeam) {
     "use server";
     const result = await fetch("http://localhost:8000/teams/" + idTeam, {
         method: "PATCH",
@@ -26,6 +26,7 @@ async function updateTeamById(name, description, idTeam) {
         body: JSON.stringify({
             name: name,
             description: description,
+            members: members,
         }),
     }).then((res) => res.json);
     return result;

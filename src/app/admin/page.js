@@ -3,13 +3,23 @@
 import { getUserInfo } from "@/middleware/auth";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+    CardFooter,
+} from "@/components/ui/card";
 
 export default function NavbarComputer() {
     const [userInfo, setUserInfo] = useState(null);
+    const router = useRouter();
     useEffect(() => {
         async function fetchData() {
             const response = await getUserInfo();
             setUserInfo(response);
+            if (!response.admin) router.push("/");
         }
         fetchData();
     }, []);

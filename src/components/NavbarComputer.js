@@ -12,7 +12,6 @@ export default function NavbarComputer() {
         async function fetchData() {
             const response = await getUserInfo();
             setUserInfo(response);
-            console.log(response);
         }
         fetchData();
     }, []);
@@ -53,13 +52,27 @@ export default function NavbarComputer() {
                     >
                         <Link href="/teams">Teams</Link>
                     </Button>
+                    <Button
+                        variant="ghostSecondary"
+                        className="cursor-pointer text-2xl"
+                    >
+                        <Link href="/gamePlayer">Game</Link>
+                    </Button>
                     {userInfo != null && userInfo.admin == true ? (
-                        <Button
-                            variant="ghostSecondary"
-                            className="cursor-pointer text-2xl"
-                        >
-                            <Link href="/admin">Panel Admin</Link>
-                        </Button>
+                        <div>
+                            <Button
+                                variant="ghostSecondary"
+                                className="cursor-pointer text-2xl"
+                            >
+                                <Link href="/admin">Panel Admin</Link>
+                            </Button>
+                            <Button
+                                variant="ghostSecondary"
+                                className="cursor-pointer text-2xl"
+                            >
+                                <Link href="/gameAdmin">Admin Game</Link>
+                            </Button>
+                        </div>
                     ) : null}
                 </section>
                 <section
