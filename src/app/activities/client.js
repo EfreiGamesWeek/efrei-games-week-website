@@ -219,7 +219,7 @@ export default function ClientPage({ createActivity, deleteEnrollById, updateAct
 													</Button>
 												) : (
 													<DialogTrigger asChild>
-														<Button className="relative cursor-pointer" disabled={userInfo == null || myTeamInfo == null || userInfo.admin}>
+														<Button className="relative cursor-pointer" disabled={userInfo == null || myTeamInfo == null || userInfo.admin || enrollByActivityID[elem._id] == undefined ? false : enrollByActivityID[elem._id].length * elem.numberOfContestantByTeam >= elem.numberOfContestantMax}>
 															S'inscrire
 														</Button>
 													</DialogTrigger>
