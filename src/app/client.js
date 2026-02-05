@@ -62,9 +62,8 @@ export default function Home() {
 		<main className="flex flex-col align-middle justify-center">
 			<section className="flex flex-col gap-4 justify-center items-center h-[90dvh] text-center mx-8 font-hungry">
 				<main className="max-w-7xl">
-					<h2 className="md:text-5xl text-2xl font-bold">La GameJam nationale commence dans :</h2>
-					<h1 className="md:text-9xl text-5xl font-extrabold">{countDownTimer}</h1>
-					<Button className="mt-4 w-40 md:text-3xl text-xl h-12 cursor-pointer">S'inscrire</Button>
+					<h2 className="md:text-5xl text-2xl font-bold">Le première édition de la GameJam de l'Efrei</h2>
+					<h1 className="md:text-9xl text-5xl font-extrabold">C'est Parti !</h1>
 					<footer className="flex flex-col items-center transition-[filter] duration-300 hover:drop-shadow-(--drop-shadow-primary) cursor-pointer">
 						<Link href="" className="w-fit h-fit items-center flex flex-col justify-center" scroll={false} onClick={scrollToElement}>
 							<h2 className="md:text-2xl text-sm font-semibold mt-4">En savoir plus</h2>
@@ -81,14 +80,13 @@ export default function Home() {
 						La GameJam de Efrei Games Week est l'évenement jeu vidéo à ne pas manquer.
 						<br />
 						<br />
-						Id conubia tortor tellus ipsum litora euismod consectetur etiam. Quis malesuada molestie nostra nunc sem. Lacinia lectus facilisis eget augue? Integer blandit fringilla aptent conubia rutrum sagittis fames. Eu semper nibh cras mattis hendrerit hendrerit.
+						Pendant 4 jours, les participants devront créer un jeu vidéo avec un thème défini. Le but est évidemment de voir tout l'étendu de leur créativité. Au début de ces 4 jours, les participants pourront rester sur le campus pendant 24h (Du vendredi soir au samedi soir). Au cours de ce week-end, il y aura des défis et animations proposés par nous, mais aussi par les associations partenaires !
 						<br />
-						<br />
-						Mus mauris facilisis nunc potenti efficitur conubia! Blandit nibh donec vulputate consequat lacinia natoque. Ultricies finibus eget torquent eget adipiscing. Imperdiet risus feugiat ut mollis elit netus. Est libero donec interdum tristique inceptos. Egestas mus mattis molestie dignissim nisl sollicitudin. Efficitur ac fusce augue eros semper.
+						<br />A la fin de ces 4 jours, il y aura un vote par les membres du staff et par le public (vous donc). Le meilleur jeu de la GameJam aura un prix ! Il y a également un prix pour les équipes qui se sont données le plus à fond durant le week-end d'ouverture.
 					</p>
 				</main>
 			</section>
-
+			{/* 
 			<section className="flex px-8 py-16 justify-center items-center text-center">
 				<main className="max-w-7xl">
 					<h2 className="text-4xl font-bold mb-8 font-hungry">Les dernières informations</h2>
@@ -122,9 +120,9 @@ export default function Home() {
 						</Link>
 					</footer>
 				</main>
-			</section>
+			</section> */}
 
-			<section className="flex flex-col gap-4 py-16 justify-center items-center text-center bg-primary text-primary-foreground">
+			<section className="flex flex-col gap-4 py-16 justify-center items-center text-center">
 				<h2 className="text-4xl font-bold mb-8 font-hungry">Les associations partenaires</h2>
 				<Carousel
 					plugins={[plugin.current]}

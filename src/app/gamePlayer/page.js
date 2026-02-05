@@ -19,6 +19,7 @@ export default function PlayerPage() {
 			setUserInfo(response);
 			if (response != null) {
 				const responseTeam = await fetch(process.env.API_URI + "/teams/" + response._id).then((resp) => resp.json());
+				if (responseTeam.body == null) router.push("/");
 				setMyTeamInfo(responseTeam.body);
 				socket = io(process.env.API_URI);
 
@@ -56,10 +57,15 @@ export default function PlayerPage() {
 	};
 
 	return (
-		<div className="flex justify-center items-center h-screen">
-			<Button onClick={handleBuzz} disabled={!canBuzz} className={"px-8 py-8 rounded-full text-2xl transition-all active:scale-95 font-hungry!"}>
-				Répondre
+		<section className="flex justify-between items-center h-screen flex-col text-center">
+			<header>
+				<h2 className="md:text-6xl text-3xl font-extrabold font-hungry mb-5">Bienvenue sur l'interface de jeu !</h2>
+				<p className="md:text-xl text-md font-extrabold">Lorsque vous en serez informé, merci d'appuyer sur le bouton Répondre pour jouer.</p>
+			</header>
+			<Button onClick={handleBuzz} disabled={!canBuzz} className={"px-30 py-30 rounded-full text-5xl transition-all active:scale-95 font-hungry!"}>
+				Répondre !
 			</Button>
-		</div>
+			<div></div>
+		</section>
 	);
 }

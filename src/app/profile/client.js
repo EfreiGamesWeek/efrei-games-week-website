@@ -47,7 +47,7 @@ export default function ProfilePage({ updateUserById, deleteUserById }) {
 			{userInfo != null ? (
 				<section className="flex px-8 justify-center items-center text-center">
 					<main className="max-w-7xl w-full">
-						<h2 className="text-4xl font-bold mb-8 font-hungry w-full">Mon profile</h2>
+						<h2 className="text-4xl font-bold mb-8 font-hungry w-full">Mon profil</h2>
 						<section className="flex w-full justify-center mb-8">
 							<Card className={"w-full"}>
 								<CardContent className="w-full! flex items-center gap-5">

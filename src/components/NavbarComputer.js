@@ -25,22 +25,19 @@ export default function NavbarComputer() {
 				</section>
 				<section className="mx-12 text-center gap-4" id="navigation">
 					<Button variant="ghostSecondary" className="cursor-pointer text-2xl" asChild>
-						<Link href="/">Home</Link>
-					</Button>
-					<Button variant="ghostSecondary" className="cursor-pointer text-2xl" asChild>
-						<Link href="/news">News</Link>
+						<Link href="/">Accueil</Link>
 					</Button>
 					<Button variant="ghostSecondary" className="cursor-pointer text-2xl" asChild>
 						<Link href="/leaderboard">Leaderboard</Link>
 					</Button>
 					<Button variant="ghostSecondary" className="cursor-pointer text-2xl">
-						<Link href="/teams">Teams</Link>
+						<Link href="/teams">Equipes</Link>
 					</Button>
 					<Button variant="ghostSecondary" className="cursor-pointer text-2xl">
-						<Link href="/activities">Activities</Link>
+						<Link href="/activities">Activités</Link>
 					</Button>
 					<Button variant="ghostSecondary" className="cursor-pointer text-2xl">
-						<Link href="/gamePlayer">Game</Link>
+						<Link href="/gamePlayer">Jeux</Link>
 					</Button>
 					{userInfo != null && userInfo.admin == true ? (
 						<div>
@@ -48,7 +45,7 @@ export default function NavbarComputer() {
 								<Link href="/admin">Panel Admin</Link>
 							</Button>
 							<Button variant="ghostSecondary" className="cursor-pointer text-2xl">
-								<Link href="/gameAdmin">Admin Game</Link>
+								<Link href="/gameAdmin">Admin Jeu</Link>
 							</Button>
 						</div>
 					) : null}
