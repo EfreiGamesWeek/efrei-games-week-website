@@ -29,7 +29,7 @@ export default function ClientPage({ createActivity, deleteEnrollById, updateAct
 			const response = await getUserInfo();
 			setUserInfo(response);
 			if (response != null) {
-				const responseTeam = await fetch("https://www.api.efreigamesweek.fr/teams/" + response._id).then((resp) => resp.json());
+				const responseTeam = await fetch(process.env.API_URI + "/teams/" + response._id).then((resp) => resp.json());
 				setMyTeamInfo(responseTeam.body);
 				if (responseTeam.body == null) return;
 				console.log(responseTeam.body);
@@ -50,7 +50,7 @@ export default function ClientPage({ createActivity, deleteEnrollById, updateAct
 					});
 				}
 				setOptions(options);
-				const responseActivityEnrolled = await fetch("https://www.api.efreigamesweek.fr/enroll/team/" + responseTeam.body._id).then((resp) => resp.json());
+				const responseActivityEnrolled = await fetch(process.env.API_URI + "/enroll/team/" + responseTeam.body._id).then((resp) => resp.json());
 				const allActivityId = [];
 				responseActivityEnrolled.map((ele) => allActivityId.push(ele.idActivity));
 				setActivitiesAlreadyEnrolled(allActivityId);
@@ -58,11 +58,11 @@ export default function ClientPage({ createActivity, deleteEnrollById, updateAct
 			}
 		}
 		async function fetchActivities() {
-			const response = await fetch("https://www.api.efreigamesweek.fr/activities/").then((resp) => resp.json());
+			const response = await fetch(process.env.API_URI + "/activities/").then((resp) => resp.json());
 			if (response == null) return;
 			setActivities(response);
 			const enrollByActivityID = {};
-			const allEnroll = await fetch("https://www.api.efreigamesweek.fr/enroll/").then((resp) => {
+			const allEnroll = await fetch(process.env.API_URI + "/enroll/").then((resp) => {
 				return resp.json();
 			});
 			allEnroll.map((elem) => {

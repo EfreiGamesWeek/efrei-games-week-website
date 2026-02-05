@@ -2,7 +2,7 @@
 
 export async function createNewTeam(name, description, userId) {
 	"use server";
-	const result = await fetch("https://www.api.efreigamesweek.fr/teams/", {
+	const result = await fetch(process.env.API_URI + "/teams/", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",

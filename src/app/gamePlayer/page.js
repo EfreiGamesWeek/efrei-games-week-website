@@ -18,9 +18,9 @@ export default function PlayerPage() {
 			const response = await getUserInfo();
 			setUserInfo(response);
 			if (response != null) {
-				const responseTeam = await fetch("https://www.api.efreigamesweek.fr/teams/" + response._id).then((resp) => resp.json());
+				const responseTeam = await fetch(process.env.API_URI + "/teams/" + response._id).then((resp) => resp.json());
 				setMyTeamInfo(responseTeam.body);
-				socket = io("https://www.api.efreigamesweek.fr");
+				socket = io(process.env.API_URI);
 
 				socket.emit("join_session", {
 					username: response.username,
@@ -38,7 +38,7 @@ export default function PlayerPage() {
 	}, []);
 
 	useEffect(() => {
-		socket = io("https://www.api.efreigamesweek.fr");
+		socket = io(process.env.API_URI);
 		socket.on("update_player_buzz_state", (data) => {
 			setCanBuzz(data.state);
 		});

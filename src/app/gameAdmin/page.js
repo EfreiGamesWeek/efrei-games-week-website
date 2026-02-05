@@ -21,7 +21,7 @@ export default function AdminPanel() {
 	}, []);
 
 	useEffect(() => {
-		socket = io("https://www.api.efreigamesweek.fr");
+		socket = io(process.env.API_URI);
 
 		socket.on("update_players_joined", (data) => {
 			if (playersJoined.findIndex((element) => element.username == data.username) != -1 || playersAnswered.findIndex((element) => element.username == data.username) != -1) return;
@@ -57,14 +57,14 @@ export default function AdminPanel() {
 	};
 
 	const allowAnswer = () => {
-		socket = io("https://www.api.efreigamesweek.fr");
+		socket = io(process.env.API_URI);
 		socket.emit("set_player_buzz_state", {
 			state: true,
 		});
 	};
 
 	const disableAnswer = () => {
-		socket = io("https://www.api.efreigamesweek.fr");
+		socket = io(process.env.API_URI);
 		socket.emit("set_player_buzz_state", {
 			state: false,
 		});

@@ -8,6 +8,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function NavbarComputer() {
 	const [userInfo, setUserInfo] = useState(null);
+	const apiUrl = process.env.API_URI;
+	console.log(apiUrl);
 	useEffect(() => {
 		async function fetchData() {
 			const response = await getUserInfo();
@@ -53,25 +55,11 @@ export default function NavbarComputer() {
 				</section>
 				<section className="flex-1 flex justify-center ml-auto text-center gap-4" id="login">
 					{userInfo == null ? (
-						<Button
-							onClick={() => {
-								var headers = new Headers();
-								headers.append("Content-Type", "application/json");
-								headers.append("Accept", "application/json");
-
-								fetch("https://api.efreigamesweek.fr/users/discord/login", {
-									method: "GET",
-									mode: "same-origin",
-									redirect: "follow",
-									credentials: "include",
-									headers: headers,
-								});
-							}}
-							variant="secondary"
-							className="cursor-pointer text-2xl"
-						>
-							Se connecter via Discord
-						</Button>
+						<Link href={apiUrl + "/users/discord/login"}>
+							<Button variant="secondary" className="cursor-pointer text-2xl">
+								Se connecter via Discord
+							</Button>
+						</Link>
 					) : (
 						<Link href="/profile">
 							<Avatar className={"w-16 h-16"}>
