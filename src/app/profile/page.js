@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import ProfilePage from "./client";
 
 async function updateUserById(name, surname, location, idUser) {
@@ -29,5 +30,9 @@ async function deleteUserById(idUser) {
 }
 
 export default function Team() {
-	return <ProfilePage updateUserById={updateUserById} deleteUserById={deleteUserById} />;
+	return (
+		<Suspense>
+			<ProfilePage updateUserById={updateUserById} deleteUserById={deleteUserById} />
+		</Suspense>
+	);
 }

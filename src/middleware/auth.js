@@ -19,9 +19,6 @@ export async function getUserInfo(token) {
 		console.log(token);
 		const cookieStore = await cookies();
 		cookieStore.set("token", token);
-		const userInfo = await fetch(process.env.API_URI + "/users/userInfo/" + token)
-			.then((data) => data.json())
-			.catch((err) => null);
-		return userInfo;
+		return true;
 	}
 }

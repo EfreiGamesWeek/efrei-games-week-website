@@ -20,20 +20,13 @@ export default function ProfilePage({ updateUserById, deleteUserById }) {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const token = searchParams.get("token");
-
 	useEffect(() => {
 		async function fetchData() {
 			console.log(token);
 			if (token != null) {
-				const response = await getUserInfo(token);
-				setUserInfo(response);
-				if (response == null) {
-					router.push("/");
-					return;
-				}
-				setName(response.name);
-				setSurname(response.surname);
-				setCampus(response.location);
+				await getUserInfo(token).then(() => {
+					router.push("/profile");
+				});
 			} else {
 				const response = await getUserInfo();
 				setUserInfo(response);
