@@ -22,7 +22,7 @@ export default function Home() {
     function fixTextToXDigits(number, x) {
         return number < 10 ? "0".repeat(x - 1) + number : number;
     }
-    var countDownDate = new Date("Feb 5, 2026 19:30:00").getTime();
+    var countDownDate = new Date("Feb 6, 2026 19:30:00").getTime();
     const [countDownTimer, setCountDownTimer] = useState("");
     const plugin = React.useRef(Autoplay({ delay: 2000 }));
 
@@ -40,7 +40,7 @@ export default function Home() {
 
         var days = Math.floor(distance / (1000 * 60 * 60 * 24));
         var hours = Math.floor(
-            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
         );
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
@@ -52,7 +52,7 @@ export default function Home() {
                 ":" +
                 fixTextToXDigits(minutes, 2) +
                 ":" +
-                fixTextToXDigits(seconds, 2)
+                fixTextToXDigits(seconds, 2),
         );
 
         if (distance < 0) {
