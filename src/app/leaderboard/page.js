@@ -14,7 +14,7 @@ export default function Leaderboard() {
 			});
 		}
 		async function fetchTeams() {
-			const response = await fetch("http://www.api.efreigamesweek.fr:8000/teams/").then((resp) => resp.json());
+			const response = await fetch("https://www.api.efreigamesweek.fr/teams/").then((resp) => resp.json());
 			setAllTeamsInfo(sort_by_key(response, "numberOfPoints", -1));
 		}
 		fetchTeams();

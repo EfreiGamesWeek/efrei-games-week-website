@@ -22,7 +22,7 @@ export default function TeamsPage({ createNewTeam, updateTeamById, deleteTeamByI
 			const response = await getUserInfo();
 			setUserInfo(response);
 			if (response != null) {
-				const responseTeam = await fetch("http://www.api.efreigamesweek.fr:8000/teams/" + response._id).then((resp) => resp.json());
+				const responseTeam = await fetch("https://www.api.efreigamesweek.fr/teams/" + response._id).then((resp) => resp.json());
 				setMyTeamInfo(responseTeam.body);
 				if (responseTeam.body == null) return;
 				if (responseTeam.body.members == "") return;
@@ -30,7 +30,7 @@ export default function TeamsPage({ createNewTeam, updateTeamById, deleteTeamByI
 			}
 		}
 		async function fetchTeams() {
-			const response = await fetch("http://www.api.efreigamesweek.fr:8000/teams/").then((resp) => resp.json());
+			const response = await fetch("https://www.api.efreigamesweek.fr/teams/").then((resp) => resp.json());
 			setAllTeamsInfo(response);
 		}
 		fetchData();

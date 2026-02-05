@@ -53,7 +53,7 @@ export default function NavbarComputer() {
 				</section>
 				<section className="flex-1 flex justify-center ml-auto text-center gap-4" id="login">
 					{userInfo == null ? (
-						<Link href={"http://www.api.efreigamesweek.fr:8000/users/discord/login"}>
+						<Link href={"https://www.api.efreigamesweek.fr/users/discord/login"}>
 							<Button variant="secondary" className="cursor-pointer text-2xl">
 								Se connecter via Discord
 							</Button>

@@ -2,7 +2,7 @@ import ClientPage from "./client";
 
 async function createActivity(name, description, organizer, location, time, numberOfPointsAvailable, numberOfContestantByTeam) {
 	"use server";
-	const result = await fetch("http://www.api.efreigamesweek.fr:8000/activities/", {
+	const result = await fetch("https://www.api.efreigamesweek.fr/activities/", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -22,7 +22,7 @@ async function createActivity(name, description, organizer, location, time, numb
 
 async function enrollActivity(idActivity, idTeam, nameTeam, teamMember, numberOfContestantMax, numberOfContestantByTeam) {
 	"use server";
-	const result = await fetch("http://www.api.efreigamesweek.fr:8000/enroll/activity/" + idActivity, {
+	const result = await fetch("https://www.api.efreigamesweek.fr/enroll/activity/" + idActivity, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -33,7 +33,7 @@ async function enrollActivity(idActivity, idTeam, nameTeam, teamMember, numberOf
 	if (result.length * numberOfContestantByTeam == numberOfContestantMax) {
 		return null;
 	}
-	const postResult = await fetch("http://www.api.efreigamesweek.fr:8000/enroll/", {
+	const postResult = await fetch("https://www.api.efreigamesweek.fr/enroll/", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -50,7 +50,7 @@ async function enrollActivity(idActivity, idTeam, nameTeam, teamMember, numberOf
 
 async function updateActivityById(idActivity, name, description, organizer, location, time, numberOfPointsAvailable, numberOfContestantByTeam) {
 	"use server";
-	const result = await fetch("http://www.api.efreigamesweek.fr:8000/activities/" + idActivity, {
+	const result = await fetch("https://www.api.efreigamesweek.fr/activities/" + idActivity, {
 		method: "PATCH",
 		headers: {
 			"Content-Type": "application/json",
@@ -70,7 +70,7 @@ async function updateActivityById(idActivity, name, description, organizer, loca
 
 async function deleteEnrollById(idEnroll) {
 	"use server";
-	const result = await fetch("http://www.api.efreigamesweek.fr:8000/enroll/" + idEnroll, {
+	const result = await fetch("https://www.api.efreigamesweek.fr/enroll/" + idEnroll, {
 		method: "DELETE",
 		headers: {
 			"Content-Type": "application/json",
@@ -82,7 +82,7 @@ async function deleteEnrollById(idEnroll) {
 
 async function deleteActivityById(idActivity) {
 	"use server";
-	const result = await fetch("http://www.api.efreigamesweek.fr:8000/activity/" + idActivity, {
+	const result = await fetch("https://www.api.efreigamesweek.fr/activity/" + idActivity, {
 		method: "DELETE",
 		headers: {
 			"Content-Type": "application/json",

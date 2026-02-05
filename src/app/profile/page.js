@@ -2,7 +2,7 @@ import ProfilePage from "./client";
 
 async function updateUserById(name, surname, location, idUser) {
 	"use server";
-	const result = await fetch("http://www.api.efreigamesweek.fr:8000/users/" + idUser, {
+	const result = await fetch("https://www.api.efreigamesweek.fr/users/" + idUser, {
 		method: "PATCH",
 		headers: {
 			"Content-Type": "application/json",
@@ -18,7 +18,7 @@ async function updateUserById(name, surname, location, idUser) {
 
 async function deleteUserById(idUser) {
 	"use server";
-	const result = await fetch("http://www.api.efreigamesweek.fr:8000/users/" + idUser, {
+	const result = await fetch("https://www.api.efreigamesweek.fr/users/" + idUser, {
 		method: "DELETE",
 		headers: {
 			"Content-Type": "application/json",

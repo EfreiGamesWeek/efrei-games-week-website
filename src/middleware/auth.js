@@ -8,7 +8,7 @@ export async function getUserInfo() {
 	if (token == undefined) {
 		return null;
 	}
-	const userInfo = await fetch("http://www.api.efreigamesweek.fr:8000/users/userInfo/" + token.value)
+	const userInfo = await fetch("https://www.api.efreigamesweek.fr/users/userInfo/" + token.value)
 		.then((data) => data.json())
 		.catch((err) => null);
 	return userInfo;

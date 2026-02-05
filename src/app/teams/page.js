@@ -2,7 +2,7 @@ import TeamsPage from "./client";
 
 async function createNewTeam(name, description, userId) {
 	"use server";
-	const result = await fetch("http://www.api.efreigamesweek.fr:8000/teams/", {
+	const result = await fetch("https://www.api.efreigamesweek.fr/teams/", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -18,7 +18,7 @@ async function createNewTeam(name, description, userId) {
 
 async function updateTeamById(name, description, members, idTeam) {
 	"use server";
-	const result = await fetch("http://www.api.efreigamesweek.fr:8000/teams/" + idTeam, {
+	const result = await fetch("https://www.api.efreigamesweek.fr/teams/" + idTeam, {
 		method: "PATCH",
 		headers: {
 			"Content-Type": "application/json",
@@ -34,7 +34,7 @@ async function updateTeamById(name, description, members, idTeam) {
 
 async function updatePointToTeamById(newPoint, idTeam) {
 	"use server";
-	const result = await fetch("http://www.api.efreigamesweek.fr:8000/teams/" + idTeam, {
+	const result = await fetch("https://www.api.efreigamesweek.fr/teams/" + idTeam, {
 		method: "PATCH",
 		headers: {
 			"Content-Type": "application/json",
@@ -48,7 +48,7 @@ async function updatePointToTeamById(newPoint, idTeam) {
 
 async function deleteTeamById(idTeam) {
 	"use server";
-	const result = await fetch("http://www.api.efreigamesweek.fr:8000/teams/" + idTeam, {
+	const result = await fetch("https://www.api.efreigamesweek.fr/teams/" + idTeam, {
 		method: "DELETE",
 		headers: {
 			"Content-Type": "application/json",
