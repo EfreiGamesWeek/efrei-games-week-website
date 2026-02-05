@@ -1019,16 +1019,15 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 						}}
 						align="start"
 						onEscapeKeyDown={() => setIsPopoverOpen(false)}>
-						<Command>
+						<Command className={undefined}>
 							{searchable && (
 								<CommandInput
-									placeholder="Search options..."
-									onKeyDown={handleInputKeyDown}
-									value={searchValue}
-									onValueChange={setSearchValue}
-									aria-label="Search through available options"
-									aria-describedby={`${multiSelectId}-search-help`}
-								/>
+                                    placeholder="Search options..."
+                                    onKeyDown={handleInputKeyDown}
+                                    value={searchValue}
+                                    onValueChange={setSearchValue}
+                                    aria-label="Search through available options"
+                                    aria-describedby={`${multiSelectId}-search-help`} className={undefined}								/>
 							)}
 							{searchable && (
 								<div id={`${multiSelectId}-search-help`} className="sr-only">
@@ -1045,7 +1044,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 									{emptyIndicator || "No results found."}
 								</CommandEmpty>{" "}
 								{!hideSelectAll && !searchValue && (
-									<CommandGroup>
+									<CommandGroup className={undefined}>
 										<CommandItem
 											key="all"
 											onSelect={toggleAll}
@@ -1082,7 +1081,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 								)}
 								{isGroupedOptions(filteredOptions) ? (
 									filteredOptions.map((group) => (
-										<CommandGroup key={group.heading} heading={group.heading}>
+										<CommandGroup key={group.heading} heading={group.heading} className={undefined}>
 											{group.options.map((option) => {
 												const isSelected = selectedValues.includes(
 													option.value
@@ -1125,7 +1124,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 										</CommandGroup>
 									))
 								) : (
-									<CommandGroup>
+									<CommandGroup className={undefined}>
 										{filteredOptions.map((option) => {
 											const isSelected = selectedValues.includes(option.value);
 											return (
@@ -1165,8 +1164,8 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 										})}
 									</CommandGroup>
 								)}
-								<CommandSeparator />
-								<CommandGroup>
+								<CommandSeparator className={undefined} />
+								<CommandGroup className={undefined}>
 									<div className="flex items-center justify-between">
 										{selectedValues.length > 0 && (
 											<>
