@@ -26,6 +26,7 @@ export default function PlayerPage() {
 				socket.emit("join_session", {
 					username: response.username,
 					team: responseTeam.body.name,
+					campus: userInfo.location,
 				});
 
 				return () => {
@@ -51,6 +52,7 @@ export default function PlayerPage() {
 				username: userInfo.username,
 				team: myTeamInfo.name,
 				time: Date.now(),
+				campus: userInfo.location,
 			});
 		}
 		setCanBuzz(false);

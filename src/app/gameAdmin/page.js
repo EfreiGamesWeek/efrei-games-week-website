@@ -97,7 +97,7 @@ export default function AdminPanel() {
 				{playersAnswered.map((buzz, index) => (
 					<div key={index} className="flex justify-between bg-white p-4 shadow rounded border-l-4 border-green-500">
 						<span className="font-bold text-xl">
-							#{index + 1} {buzz.username} -- Equipe : {buzz.team}
+							#{index + 1} {buzz.username} -- Equipe : {buzz.team} - {buzz.campus}
 						</span>
 						<span className="text-gray-500 text-sm">
 							{/* Calcul du delta temps si nécessaire, ou affichage brut */}
@@ -112,7 +112,7 @@ export default function AdminPanel() {
 				{playersJoined.map((buzz, index) => (
 					<div key={index} className="flex justify-between bg-white p-4 shadow rounded border-l-4 border-yellow-500">
 						<span className="font-bold text-xl">
-							#{index + 1} {buzz.username} -- Equipe : {buzz.team}
+							#{index + 1} {buzz.username} -- Equipe : {buzz.team} - {buzz.campus}
 						</span>
 					</div>
 				))}
