@@ -64,7 +64,7 @@ export default function ProfilePage({ updateUserById, deleteUserById }) {
 										<Input value={surname} onChange={(e) => setSurname(e.target.value)} id="surname" required placeholder="Nom"></Input>
 									</Field>
 									<Field>
-										<FieldLabel htmlFor="surname">Campus</FieldLabel>
+										<FieldLabel>Campus</FieldLabel>
 										<Select
 											value={campus}
 											onValueChange={(value) => {

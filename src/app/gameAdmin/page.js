@@ -3,6 +3,7 @@ import { getUserInfo } from "@/middleware/auth";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 let socket;
 
@@ -80,18 +81,18 @@ export default function AdminPanel() {
 	return (
 		<div className="p-10">
 			<h1 className="text-3xl font-bold mb-6">Session Admin</h1>
-			<button onClick={handleRemovePlayers} className="bg-blue-500 text-white px-4 py-2 rounded mb-4 mr-4">
+			<Button variant="outline" onClick={handleRemovePlayers} className="cursor-pointer mb-4 mr-4">
 				Remove all players
-			</button>
-			<button onClick={handleResetPlayersState} className="bg-blue-500 text-white px-4 py-2 rounded mb-4 mr-4">
+			</Button>
+			<Button variant="outline" onClick={handleResetPlayersState} className="cursor-pointer mb-4 mr-4">
 				Reset players state
-			</button>
-			<button onClick={allowAnswer} className="bg-green-500 text-white px-4 py-2 rounded mb-4 mr-4">
+			</Button>
+			<Button onClick={allowAnswer} className="cursor-pointer mb-4 mr-4">
 				Allow Answers
-			</button>
-			<button onClick={disableAnswer} className="bg-red-500 text-white px-4 py-2 rounded mb-4 mr-4">
+			</Button>
+			<Button onClick={disableAnswer} className="cursor-pointer mb-4 mr-4">
 				Disable Answers
-			</button>
+			</Button>
 
 			<div className="space-y-2 mb-6">
 				{playersAnswered.map((buzz, index) => (

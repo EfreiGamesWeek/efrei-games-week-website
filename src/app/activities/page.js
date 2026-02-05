@@ -1,6 +1,6 @@
 import ClientPage from "./client";
 
-async function createActivity(name, description, organizer, location, time, numberOfPointsAvailable, numberOfContestantByTeam) {
+async function createActivity(name, description, organizer, location, time, numberOfPointsAvailable, numberOfContestantByTeam, numberOfContestantMax, campus) {
 	"use server";
 	const result = await fetch(process.env.API_URI + "/activities/", {
 		method: "POST",
@@ -15,6 +15,8 @@ async function createActivity(name, description, organizer, location, time, numb
 			time: time,
 			numberOfPointsAvailable: numberOfPointsAvailable,
 			numberOfContestantByTeam: numberOfContestantByTeam,
+			numberOfContestantMax: numberOfContestantMax,
+			campus: campus,
 		}),
 	}).then((res) => res.json);
 	return result;
@@ -48,7 +50,7 @@ async function enrollActivity(idActivity, idTeam, nameTeam, teamMember, numberOf
 	return postResult;
 }
 
-async function updateActivityById(idActivity, name, description, organizer, location, time, numberOfPointsAvailable, numberOfContestantByTeam) {
+async function updateActivityById(idActivity, name, description, organizer, location, time, numberOfPointsAvailable, numberOfContestantByTeam, numberOfContestantMax, campus) {
 	"use server";
 	const result = await fetch(process.env.API_URI + "/activities/" + idActivity, {
 		method: "PATCH",
@@ -63,6 +65,8 @@ async function updateActivityById(idActivity, name, description, organizer, loca
 			time: time,
 			numberOfPointsAvailable: numberOfPointsAvailable,
 			numberOfContestantByTeam: numberOfContestantByTeam,
+			numberOfContestantMax: numberOfContestantMax,
+			campus: campus,
 		}),
 	}).then((res) => res.json);
 	return result;
@@ -82,7 +86,7 @@ async function deleteEnrollById(idEnroll) {
 
 async function deleteActivityById(idActivity) {
 	"use server";
-	const result = await fetch(process.env.API_URI + "/activity/" + idActivity, {
+	const result = await fetch(process.env.API_URI + "/activities/" + idActivity, {
 		method: "DELETE",
 		headers: {
 			"Content-Type": "application/json",

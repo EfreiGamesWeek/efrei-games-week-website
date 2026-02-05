@@ -9,7 +9,7 @@ import { MultiSelect } from "@/components/ui/multi-select";
 
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog";
 
-import Link from "next/link";
+import { Select, SelectContent, SelectTrigger, SelectItem, SelectValue, SelectGroup } from "@/components/ui/select";
 import { getUserInfo } from "@/middleware/auth";
 
 import { useState, useEffect } from "react";
@@ -24,6 +24,7 @@ export default function ClientPage({ createActivity, deleteEnrollById, updateAct
 	const [activities, setActivities] = useState([]);
 	const [activitiesAlreadyEnrolled, setActivitiesAlreadyEnrolled] = useState([]);
 	const [enrollByActivityID, setEnrollByActivityID] = useState({});
+	const [campus, setCampus] = useState("");
 
 	useEffect(() => {
 		async function fetchData() {
@@ -91,14 +92,16 @@ export default function ClientPage({ createActivity, deleteEnrollById, updateAct
 				time: document.getElementById("time").value,
 				numberOfPointsAvailable: document.getElementById("numberOfPointsAvailable").value,
 				numberOfContestantByTeam: document.getElementById("numberOfContestantByTeam").value,
+				numberOfContestantMax: document.getElementById("numberOfContestantMax").value,
+				campus: campus,
 			},
 		]);
-		createActivity(document.getElementById("name").value, document.getElementById("desc").value, document.getElementById("organizer").value, document.getElementById("location").value, document.getElementById("time").value, document.getElementById("numberOfPointsAvailable").value, document.getElementById("numberOfContestantByTeam").value);
+		createActivity(document.getElementById("name").value, document.getElementById("desc").value, document.getElementById("organizer").value, document.getElementById("location").value, document.getElementById("time").value, document.getElementById("numberOfPointsAvailable").value, document.getElementById("numberOfContestantByTeam").value, document.getElementById("numberOfContestantMax").value, campus);
 	};
 
 	const updateActivity = (idActivity, idxActivity) => {
 		const updateActivity = activities.slice();
-		((updateActivity[idxActivity] = {
+		updateActivity[idxActivity] = {
 			name: document.getElementById("name").value,
 			description: document.getElementById("desc").value,
 			organizer: document.getElementById("organizer").value,
@@ -106,9 +109,11 @@ export default function ClientPage({ createActivity, deleteEnrollById, updateAct
 			time: document.getElementById("time").value,
 			numberOfPointsAvailable: document.getElementById("numberOfPointsAvailable").value,
 			numberOfContestantByTeam: document.getElementById("numberOfContestantByTeam").value,
-		}),
-			setActivities(updateActivity));
-		updateActivityById(idActivity, document.getElementById("name").value, document.getElementById("desc").value, document.getElementById("organizer").value, document.getElementById("location").value, document.getElementById("time").value, document.getElementById("numberOfPointsAvailable").value, document.getElementById("numberOfContestantByTeam").value);
+			numberOfContestantMax: document.getElementById("numberOfContestantMax").value,
+			campus: campus,
+		};
+		setActivities(updateActivity);
+		updateActivityById(idActivity, document.getElementById("name").value, document.getElementById("desc").value, document.getElementById("organizer").value, document.getElementById("location").value, document.getElementById("time").value, document.getElementById("numberOfPointsAvailable").value, document.getElementById("numberOfContestantByTeam").value, document.getElementById("numberOfContestantMax").value, campus);
 	};
 
 	const enroll = (idActivity, numberOfContestantMax, numberOfContestantByTeam) => {
@@ -152,7 +157,26 @@ export default function ClientPage({ createActivity, deleteEnrollById, updateAct
 										<Input id="organizer" required placeholder="Le nom de l'organisateur"></Input>
 									</Field>
 									<Field className="pb-4">
-										<FieldLabel htmlFor="location">Lieu *</FieldLabel>
+										<FieldLabel>Campus *</FieldLabel>
+										<Select
+											value={campus}
+											onValueChange={(value) => {
+												setCampus(value);
+											}}
+										>
+											<SelectTrigger>
+												<SelectValue placeholder="Campus" />
+											</SelectTrigger>
+											<SelectContent>
+												<SelectGroup>
+													<SelectItem value="bordeaux">Bordeaux</SelectItem>
+													<SelectItem value="paris">Paris</SelectItem>
+												</SelectGroup>
+											</SelectContent>
+										</Select>
+									</Field>
+									<Field className="pb-4">
+										<FieldLabel htmlFor="location">Salle *</FieldLabel>
 										<Input id="location" required placeholder="Le lieu de l'activité"></Input>
 									</Field>
 									<Field className="pb-4">
@@ -164,8 +188,12 @@ export default function ClientPage({ createActivity, deleteEnrollById, updateAct
 										<Input type="number" id="numberOfPointsAvailable" required placeholder="Le nombre de points à gagner"></Input>
 									</Field>
 									<Field className="pb-4">
-										<FieldLabel htmlFor="numberOfContestantByTeam">Nombre de participants *</FieldLabel>
+										<FieldLabel htmlFor="numberOfContestantByTeam">Nombre de participants PAR EQUIPE *</FieldLabel>
 										<Input type="number" id="numberOfContestantByTeam" required placeholder="Le nombre de participants par groupe"></Input>
+									</Field>
+									<Field className="pb-4">
+										<FieldLabel htmlFor="numberOfContestantMax">Nombre de participants EN TOUT *</FieldLabel>
+										<Input type="number" id="numberOfContestantMax" required placeholder="Le nombre de participants par groupe"></Input>
 									</Field>
 								</div>
 							</main>
@@ -229,7 +257,7 @@ export default function ClientPage({ createActivity, deleteEnrollById, updateAct
 											{userInfo == null ? null : userInfo.admin ? (
 												<aside className="flex justify-center gap-4">
 													<DialogTrigger asChild>
-														<Button variant="outline" className={"cursor-pointer"}>
+														<Button variant="outline" onClick={() => setCampus(elem.campus)} className={"cursor-pointer"}>
 															Modifier
 														</Button>
 													</DialogTrigger>
@@ -278,8 +306,27 @@ export default function ClientPage({ createActivity, deleteEnrollById, updateAct
 															<FieldLabel htmlFor="organizer">Nom de l'organisateur *</FieldLabel>
 															<Input defaultValue={elem.organizer} id="organizer" required placeholder="Le nom de l'organisateur"></Input>
 														</Field>
+														<Field>
+															<FieldLabel htmlFor="surname">Campus</FieldLabel>
+															<Select
+																value={campus}
+																onValueChange={(value) => {
+																	setCampus(value);
+																}}
+															>
+																<SelectTrigger>
+																	<SelectValue placeholder="Campus" />
+																</SelectTrigger>
+																<SelectContent>
+																	<SelectGroup>
+																		<SelectItem value="bordeaux">Bordeaux</SelectItem>
+																		<SelectItem value="paris">Paris</SelectItem>
+																	</SelectGroup>
+																</SelectContent>
+															</Select>
+														</Field>
 														<Field className="pb-4">
-															<FieldLabel htmlFor="location">Lieu *</FieldLabel>
+															<FieldLabel htmlFor="location">Salle *</FieldLabel>
 															<Input defaultValue={elem.location} id="location" required placeholder="Le lieu de l'activité"></Input>
 														</Field>
 														<Field className="pb-4">
@@ -291,8 +338,12 @@ export default function ClientPage({ createActivity, deleteEnrollById, updateAct
 															<Input defaultValue={elem.numberOfPointsAvailable} type="number" id="numberOfPointsAvailable" required placeholder="Le nombre de points à gagner"></Input>
 														</Field>
 														<Field className="pb-4">
-															<FieldLabel htmlFor="numberOfContestantByTeam">Nombre de participants *</FieldLabel>
+															<FieldLabel htmlFor="numberOfContestantByTeam">Nombre de participants PAR EQUIPE *</FieldLabel>
 															<Input defaultValue={elem.numberOfContestantByTeam} type="number" id="numberOfContestantByTeam" required placeholder="Le nombre de participants par groupe"></Input>
+														</Field>
+														<Field className="pb-4">
+															<FieldLabel htmlFor="numberOfContestantMax">Nombre de participants EN TOUT *</FieldLabel>
+															<Input defaultValue={elem.numberOfContestantMax} type="number" id="numberOfContestantMax" required placeholder="Le nombre de participants par groupe"></Input>
 														</Field>
 													</div>
 												</main>
