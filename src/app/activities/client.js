@@ -14,6 +14,7 @@ import { getUserInfo } from "@/middleware/auth";
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { CSVLink } from "react-csv";
 
 export default function ClientPage({ createActivity, deleteEnrollById, updateActivityById, enrollActivity, deleteActivityById }) {
 	const [userInfo, setUserInfo] = useState(null);
@@ -219,7 +220,7 @@ export default function ClientPage({ createActivity, deleteEnrollById, updateAct
 													</Button>
 												) : (
 													<DialogTrigger asChild>
-														<Button className="relative cursor-pointer" disabled={userInfo == null || myTeamInfo == null || userInfo.admin || enrollByActivityID[elem._id] == undefined ? false : enrollByActivityID[elem._id].length * elem.numberOfContestantByTeam >= elem.numberOfContestantMax}>
+														<Button className="relative cursor-pointer" disabled={userInfo == null || myTeamInfo == null || userInfo.admin || (enrollByActivityID[elem._id] == undefined ? false : enrollByActivityID[elem._id].length * elem.numberOfContestantByTeam >= elem.numberOfContestantMax)}>
 															S'inscrire
 														</Button>
 													</DialogTrigger>
@@ -242,6 +243,18 @@ export default function ClientPage({ createActivity, deleteEnrollById, updateAct
 													>
 														Supprimer
 													</Button>
+													<CSVLink filename={`ListeParticipants-${elem.name}-${elem.location}`} data={enrollByActivityID[elem._id] == undefined ? [] : enrollByActivityID[elem._id]}>
+														<Button
+															variant="outline"
+															className={"cursor-pointer"}
+															onClick={() => {
+																deleteActivityById(elem._id);
+																location.reload();
+															}}
+														>
+															Télécharger
+														</Button>
+													</CSVLink>
 												</aside>
 											) : null}
 										</Card>
