@@ -55,11 +55,11 @@ export default function NavbarComputer() {
 				</section>
 				<section className="flex-1 flex justify-center ml-auto text-center gap-4" id="login">
 					{userInfo == null ? (
-						<a href={"/api/users/discord/login"}>
+						<Link href={apiUrl + "/users/discord/login"}>
 							<Button variant="secondary" className="cursor-pointer text-2xl">
 								Se connecter via Discord
 							</Button>
-						</a>
+						</Link>
 					) : (
 						<Link href="/profile">
 							<Avatar className={"w-16 h-16"}>

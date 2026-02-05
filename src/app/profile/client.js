@@ -9,6 +9,7 @@ import { Field, FieldLabel } from "@/components/ui/field";
 import { SelectValue, Select, SelectContent, SelectItem, SelectGroup, SelectTrigger } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export default function ProfilePage({ updateUserById, deleteUserById }) {
 	const [userInfo, setUserInfo] = useState(null);
@@ -17,18 +18,33 @@ export default function ProfilePage({ updateUserById, deleteUserById }) {
 	const [campus, setCampus] = useState("");
 
 	const router = useRouter();
+	const searchParams = useSearchParams();
 
 	useEffect(() => {
 		async function fetchData() {
-			const response = await getUserInfo();
-			setUserInfo(response);
-			if (response == null) {
-				router.push("/");
-				return;
+			const token = searchParams.get("token");
+			console.log(token);
+			if (token != null) {
+				const response = await getUserInfo(token);
+				setUserInfo(response);
+				if (response == null) {
+					router.push("/");
+					return;
+				}
+				setName(response.name);
+				setSurname(response.surname);
+				setCampus(response.location);
+			} else {
+				const response = await getUserInfo();
+				setUserInfo(response);
+				if (response == null) {
+					router.push("/");
+					return;
+				}
+				setName(response.name);
+				setSurname(response.surname);
+				setCampus(response.location);
 			}
-			setName(response.name);
-			setSurname(response.surname);
-			setCampus(response.location);
 		}
 		fetchData();
 	}, []);
