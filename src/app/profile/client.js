@@ -19,10 +19,10 @@ export default function ProfilePage({ updateUserById, deleteUserById }) {
 
 	const router = useRouter();
 	const searchParams = useSearchParams();
+	const token = searchParams.get("token");
 
 	useEffect(() => {
 		async function fetchData() {
-			const token = searchParams.get("token");
 			console.log(token);
 			if (token != null) {
 				const response = await getUserInfo(token);
