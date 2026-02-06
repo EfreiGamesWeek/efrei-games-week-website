@@ -356,99 +356,89 @@ export default function ClientPage({
             {activities == null && Object.keys(enrollByActivityID) != 0
               ? null
               : activities.map((elem, idx) => {
-                  userInfo == null ||
-                  myTeamInfo == null ||
-                  userInfo.campus == elem.campus ? (
-                    <Dialog key={idx}>
-                      <Card
-                        key={idx}
-                        className="md:flex-1/4 md:basis-[30%] md:grow-0 justify-center"
-                      >
-                        <CardHeader>
-                          <h4 className="text-xl font-semibold">
-                            {elem.name} - {elem.organizer}
-                          </h4>
-                          <h2>
-                            {elem.location} - {elem.time}
-                          </h2>
-                          <h2>
-                            Nombre de personnes par équipe :{" "}
-                            {elem.numberOfContestantByTeam}
-                          </h2>
-                        </CardHeader>
-                        <CardContent>{elem.description}</CardContent>
-                        <CardFooter className="flex justify-between text-sm">
-                          <h2>
-                            Nombre d'inscrits :{" "}
-                            {enrollByActivityID[elem._id] == undefined
-                              ? 0
-                              : enrollByActivityID[elem._id].length *
-                                elem.numberOfContestantByTeam}
-                            /{elem.numberOfContestantMax}
-                          </h2>
-                          {activitiesAlreadyEnrolled.includes(elem._id) ? (
-                            <Button
-                              onClick={() => {
-                                deleteEnrollById(
-                                  enrollByActivityID[elem._id].find(
-                                    (o) => o.idTeam == myTeamInfo._id,
-                                  )._id,
-                                );
-                                location.reload();
-                              }}
-                              className="relative cursor-pointer"
-                            >
-                              Supprimer son inscription
-                            </Button>
-                          ) : (
-                            <DialogTrigger asChild>
+                  console.log(
+                    userInfo == null ||
+                      myTeamInfo == null ||
+                      userInfo.campus == elem.campus,
+                  );
+                  if (
+                    userInfo == null ||
+                    myTeamInfo == null ||
+                    userInfo.campus == elem.campus
+                  ) {
+                    return (
+                      <Dialog key={idx}>
+                        <Card
+                          key={idx}
+                          className="md:flex-1/4 md:basis-[30%] md:grow-0 justify-center"
+                        >
+                          <CardHeader>
+                            <h4 className="text-xl font-semibold">
+                              {elem.name} - {elem.organizer}
+                            </h4>
+                            <h2>
+                              {elem.location} - {elem.time}
+                            </h2>
+                            <h2>
+                              Nombre de personnes par équipe :{" "}
+                              {elem.numberOfContestantByTeam}
+                            </h2>
+                          </CardHeader>
+                          <CardContent>{elem.description}</CardContent>
+                          <CardFooter className="flex justify-between text-sm">
+                            <h2>
+                              Nombre d'inscrits :{" "}
+                              {enrollByActivityID[elem._id] == undefined
+                                ? 0
+                                : enrollByActivityID[elem._id].length *
+                                  elem.numberOfContestantByTeam}
+                              /{elem.numberOfContestantMax}
+                            </h2>
+                            {activitiesAlreadyEnrolled.includes(elem._id) ? (
                               <Button
+                                onClick={() => {
+                                  deleteEnrollById(
+                                    enrollByActivityID[elem._id].find(
+                                      (o) => o.idTeam == myTeamInfo._id,
+                                    )._id,
+                                  );
+                                  location.reload();
+                                }}
                                 className="relative cursor-pointer"
-                                disabled={
-                                  userInfo == null ||
-                                  myTeamInfo == null ||
-                                  userInfo.admin ||
-                                  (enrollByActivityID[elem._id] == undefined
-                                    ? false
-                                    : enrollByActivityID[elem._id].length *
-                                        elem.numberOfContestantByTeam >=
-                                      elem.numberOfContestantMax)
-                                }
                               >
-                                S'inscrire
+                                Supprimer son inscription
                               </Button>
-                            </DialogTrigger>
-                          )}
-                        </CardFooter>
-                        {userInfo == null ? null : userInfo.admin ? (
-                          <aside className="flex justify-center gap-4">
-                            <DialogTrigger asChild>
-                              <Button
-                                variant="outline"
-                                onClick={() => setCampus(elem.campus)}
-                                className={"cursor-pointer"}
-                              >
-                                Modifier
-                              </Button>
-                            </DialogTrigger>
-                            <Button
-                              variant="outline"
-                              className={"cursor-pointer"}
-                              onClick={() => {
-                                deleteActivityById(elem._id);
-                                location.reload();
-                              }}
-                            >
-                              Supprimer
-                            </Button>
-                            <CSVLink
-                              filename={`ListeParticipants-${elem.name}-${elem.location}`}
-                              data={
-                                enrollByActivityID[elem._id] == undefined
-                                  ? []
-                                  : enrollByActivityID[elem._id]
-                              }
-                            >
+                            ) : (
+                              <DialogTrigger asChild>
+                                <Button
+                                  className="relative cursor-pointer"
+                                  disabled={
+                                    userInfo == null ||
+                                    myTeamInfo == null ||
+                                    userInfo.admin ||
+                                    (enrollByActivityID[elem._id] == undefined
+                                      ? false
+                                      : enrollByActivityID[elem._id].length *
+                                          elem.numberOfContestantByTeam >=
+                                        elem.numberOfContestantMax)
+                                  }
+                                >
+                                  S'inscrire
+                                </Button>
+                              </DialogTrigger>
+                            )}
+                          </CardFooter>
+                          {userInfo == null ? null : userInfo.admin ? (
+                            <aside className="flex justify-center gap-4">
+                              <DialogTrigger asChild>
+                                <Button
+                                  variant="outline"
+                                  onClick={() => setCampus(elem.campus)}
+                                  className={"cursor-pointer"}
+                                >
+                                  Modifier
+                                </Button>
+                              </DialogTrigger>
                               <Button
                                 variant="outline"
                                 className={"cursor-pointer"}
@@ -457,229 +447,252 @@ export default function ClientPage({
                                   location.reload();
                                 }}
                               >
-                                Télécharger
+                                Supprimer
                               </Button>
-                            </CSVLink>
-                          </aside>
-                        ) : null}
-                      </Card>
-                      {userInfo == null ? null : userInfo.admin ? (
-                        <DialogContent className="sm:max-w-md">
-                          <DialogHeader>
-                            <DialogTitle>Ajouter une activité</DialogTitle>
-                            <DialogDescription>
-                              Tous les champs avec une * sont obligatoires
-                            </DialogDescription>
-                          </DialogHeader>
-                          <main>
-                            <div>
-                              <Field className="pb-4">
-                                <FieldLabel htmlFor="name">
-                                  Nom de l'activité *
-                                </FieldLabel>
-                                <Input
-                                  defaultValue={elem.name}
-                                  id="name"
-                                  required
-                                  placeholder="Le nom de l'activité"
-                                ></Input>
-                              </Field>
-                              <Field className="pb-4">
-                                <FieldLabel htmlFor="desc">
-                                  Description de l'activité
-                                </FieldLabel>
-                                <Textarea
-                                  defaultValue={elem.description}
-                                  id="desc"
-                                  placeholder="La description de l'activité"
-                                ></Textarea>
-                              </Field>
-                              <Field className="pb-4">
-                                <FieldLabel htmlFor="organizer">
-                                  Nom de l'organisateur *
-                                </FieldLabel>
-                                <Input
-                                  defaultValue={elem.organizer}
-                                  id="organizer"
-                                  required
-                                  placeholder="Le nom de l'organisateur"
-                                ></Input>
-                              </Field>
-                              <Field>
-                                <FieldLabel htmlFor="surname">
-                                  Campus
-                                </FieldLabel>
-                                <Select
-                                  value={campus}
-                                  onValueChange={(value) => {
-                                    setCampus(value);
+                              <CSVLink
+                                filename={`ListeParticipants-${elem.name}-${elem.location}`}
+                                data={
+                                  enrollByActivityID[elem._id] == undefined
+                                    ? []
+                                    : enrollByActivityID[elem._id]
+                                }
+                              >
+                                <Button
+                                  variant="outline"
+                                  className={"cursor-pointer"}
+                                  onClick={() => {
+                                    deleteActivityById(elem._id);
+                                    location.reload();
                                   }}
                                 >
-                                  <SelectTrigger>
-                                    <SelectValue placeholder="Campus" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    <SelectGroup>
-                                      <SelectItem value="bordeaux">
-                                        Bordeaux
-                                      </SelectItem>
-                                      <SelectItem value="paris">
-                                        Paris
-                                      </SelectItem>
-                                    </SelectGroup>
-                                  </SelectContent>
-                                </Select>
-                              </Field>
-                              <Field className="pb-4">
-                                <FieldLabel htmlFor="location">
-                                  Salle *
-                                </FieldLabel>
-                                <Input
-                                  defaultValue={elem.location}
-                                  id="location"
-                                  required
-                                  placeholder="Le lieu de l'activité"
-                                ></Input>
-                              </Field>
-                              <Field className="pb-4">
-                                <FieldLabel htmlFor="time">
-                                  Horaires *
-                                </FieldLabel>
-                                <Input
-                                  defaultValue={elem.time}
-                                  id="time"
-                                  required
-                                  placeholder="Les horaires de l'activité"
-                                ></Input>
-                              </Field>
-                              <Field className="pb-4">
-                                <FieldLabel htmlFor="numberOfPointsAvailable">
-                                  Points à gagner *
-                                </FieldLabel>
-                                <Input
-                                  defaultValue={elem.numberOfPointsAvailable}
-                                  type="number"
-                                  id="numberOfPointsAvailable"
-                                  required
-                                  placeholder="Le nombre de points à gagner"
-                                ></Input>
-                              </Field>
-                              <Field className="pb-4">
-                                <FieldLabel htmlFor="numberOfContestantByTeam">
-                                  Nombre de participants PAR EQUIPE *
-                                </FieldLabel>
-                                <Input
-                                  defaultValue={elem.numberOfContestantByTeam}
-                                  type="number"
-                                  id="numberOfContestantByTeam"
-                                  required
-                                  placeholder="Le nombre de participants par groupe"
-                                ></Input>
-                              </Field>
-                              <Field className="pb-4">
-                                <FieldLabel htmlFor="numberOfContestantMax">
-                                  Nombre de participants EN TOUT *
-                                </FieldLabel>
-                                <Input
-                                  defaultValue={elem.numberOfContestantMax}
-                                  type="number"
-                                  id="numberOfContestantMax"
-                                  required
-                                  placeholder="Le nombre de participants par groupe"
-                                ></Input>
-                              </Field>
-                            </div>
-                          </main>
-                          <DialogFooter>
-                            <section className="flex justify-between w-full">
-                              <div className="ml-auto flex gap-2">
-                                <DialogClose asChild>
-                                  <Button
-                                    variant="outline"
-                                    className={"cursor-pointer"}
+                                  Télécharger
+                                </Button>
+                              </CSVLink>
+                            </aside>
+                          ) : null}
+                        </Card>
+                        {userInfo == null ? null : userInfo.admin ? (
+                          <DialogContent className="sm:max-w-md">
+                            <DialogHeader>
+                              <DialogTitle>Ajouter une activité</DialogTitle>
+                              <DialogDescription>
+                                Tous les champs avec une * sont obligatoires
+                              </DialogDescription>
+                            </DialogHeader>
+                            <main>
+                              <div>
+                                <Field className="pb-4">
+                                  <FieldLabel htmlFor="name">
+                                    Nom de l'activité *
+                                  </FieldLabel>
+                                  <Input
+                                    defaultValue={elem.name}
+                                    id="name"
+                                    required
+                                    placeholder="Le nom de l'activité"
+                                  ></Input>
+                                </Field>
+                                <Field className="pb-4">
+                                  <FieldLabel htmlFor="desc">
+                                    Description de l'activité
+                                  </FieldLabel>
+                                  <Textarea
+                                    defaultValue={elem.description}
+                                    id="desc"
+                                    placeholder="La description de l'activité"
+                                  ></Textarea>
+                                </Field>
+                                <Field className="pb-4">
+                                  <FieldLabel htmlFor="organizer">
+                                    Nom de l'organisateur *
+                                  </FieldLabel>
+                                  <Input
+                                    defaultValue={elem.organizer}
+                                    id="organizer"
+                                    required
+                                    placeholder="Le nom de l'organisateur"
+                                  ></Input>
+                                </Field>
+                                <Field>
+                                  <FieldLabel htmlFor="surname">
+                                    Campus
+                                  </FieldLabel>
+                                  <Select
+                                    value={campus}
+                                    onValueChange={(value) => {
+                                      setCampus(value);
+                                    }}
                                   >
-                                    Annuler
-                                  </Button>
-                                </DialogClose>
-                                <DialogClose asChild>
-                                  <Button
-                                    onClick={() =>
-                                      updateActivity(elem._id, idx)
-                                    }
-                                    type="submit"
-                                    className={"cursor-pointer"}
-                                  >
-                                    Sauvegarder
-                                  </Button>
-                                </DialogClose>
+                                    <SelectTrigger>
+                                      <SelectValue placeholder="Campus" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      <SelectGroup>
+                                        <SelectItem value="bordeaux">
+                                          Bordeaux
+                                        </SelectItem>
+                                        <SelectItem value="paris">
+                                          Paris
+                                        </SelectItem>
+                                      </SelectGroup>
+                                    </SelectContent>
+                                  </Select>
+                                </Field>
+                                <Field className="pb-4">
+                                  <FieldLabel htmlFor="location">
+                                    Salle *
+                                  </FieldLabel>
+                                  <Input
+                                    defaultValue={elem.location}
+                                    id="location"
+                                    required
+                                    placeholder="Le lieu de l'activité"
+                                  ></Input>
+                                </Field>
+                                <Field className="pb-4">
+                                  <FieldLabel htmlFor="time">
+                                    Horaires *
+                                  </FieldLabel>
+                                  <Input
+                                    defaultValue={elem.time}
+                                    id="time"
+                                    required
+                                    placeholder="Les horaires de l'activité"
+                                  ></Input>
+                                </Field>
+                                <Field className="pb-4">
+                                  <FieldLabel htmlFor="numberOfPointsAvailable">
+                                    Points à gagner *
+                                  </FieldLabel>
+                                  <Input
+                                    defaultValue={elem.numberOfPointsAvailable}
+                                    type="number"
+                                    id="numberOfPointsAvailable"
+                                    required
+                                    placeholder="Le nombre de points à gagner"
+                                  ></Input>
+                                </Field>
+                                <Field className="pb-4">
+                                  <FieldLabel htmlFor="numberOfContestantByTeam">
+                                    Nombre de participants PAR EQUIPE *
+                                  </FieldLabel>
+                                  <Input
+                                    defaultValue={elem.numberOfContestantByTeam}
+                                    type="number"
+                                    id="numberOfContestantByTeam"
+                                    required
+                                    placeholder="Le nombre de participants par groupe"
+                                  ></Input>
+                                </Field>
+                                <Field className="pb-4">
+                                  <FieldLabel htmlFor="numberOfContestantMax">
+                                    Nombre de participants EN TOUT *
+                                  </FieldLabel>
+                                  <Input
+                                    defaultValue={elem.numberOfContestantMax}
+                                    type="number"
+                                    id="numberOfContestantMax"
+                                    required
+                                    placeholder="Le nombre de participants par groupe"
+                                  ></Input>
+                                </Field>
                               </div>
-                            </section>
-                          </DialogFooter>
-                        </DialogContent>
-                      ) : (
-                        <DialogContent className="sm:max-w-md">
-                          <DialogHeader>
-                            <DialogTitle>S'inscrire à {elem.name}</DialogTitle>
-                            <DialogDescription>
-                              Tous les champs avec une * sont obligatoires
-                            </DialogDescription>
-                          </DialogHeader>
-                          <main>
-                            <Field className="pb-4">
-                              <FieldLabel htmlFor="contestants">
-                                Choisis tes {elem.numberOfContestantByTeam}{" "}
-                                champions *
-                              </FieldLabel>
-                              <MultiSelect
-                                value={selected}
-                                id="contestants"
-                                options={options}
-                                maxCount={0}
-                                onValueChange={(value) => {
-                                  setSelected(value);
-                                }}
-                                responsive={true}
-                                hideSelectAll={true}
-                              />
-                            </Field>
-                          </main>
-                          <DialogFooter>
-                            <section className="flex justify-between w-full">
-                              <div className="ml-auto flex gap-2">
-                                <DialogClose asChild>
-                                  <Button
-                                    variant="outline"
-                                    className={"cursor-pointer"}
-                                  >
-                                    Annuler
-                                  </Button>
-                                </DialogClose>
-                                <DialogClose asChild>
-                                  <Button
-                                    disabled={
-                                      selected.length !=
-                                      elem.numberOfContestantByTeam
-                                    }
-                                    onClick={() =>
-                                      enroll(
-                                        elem._id,
-                                        elem.numberOfContestantMax,
-                                        elem.numberOfContestantByTeam,
-                                      )
-                                    }
-                                    type="submit"
-                                    className={"cursor-pointer"}
-                                  >
-                                    Sauvegarder
-                                  </Button>
-                                </DialogClose>
-                              </div>
-                            </section>
-                          </DialogFooter>
-                        </DialogContent>
-                      )}
-                    </Dialog>
-                  ) : null;
+                            </main>
+                            <DialogFooter>
+                              <section className="flex justify-between w-full">
+                                <div className="ml-auto flex gap-2">
+                                  <DialogClose asChild>
+                                    <Button
+                                      variant="outline"
+                                      className={"cursor-pointer"}
+                                    >
+                                      Annuler
+                                    </Button>
+                                  </DialogClose>
+                                  <DialogClose asChild>
+                                    <Button
+                                      onClick={() =>
+                                        updateActivity(elem._id, idx)
+                                      }
+                                      type="submit"
+                                      className={"cursor-pointer"}
+                                    >
+                                      Sauvegarder
+                                    </Button>
+                                  </DialogClose>
+                                </div>
+                              </section>
+                            </DialogFooter>
+                          </DialogContent>
+                        ) : (
+                          <DialogContent className="sm:max-w-md">
+                            <DialogHeader>
+                              <DialogTitle>
+                                S'inscrire à {elem.name}
+                              </DialogTitle>
+                              <DialogDescription>
+                                Tous les champs avec une * sont obligatoires
+                              </DialogDescription>
+                            </DialogHeader>
+                            <main>
+                              <Field className="pb-4">
+                                <FieldLabel htmlFor="contestants">
+                                  Choisis tes {elem.numberOfContestantByTeam}{" "}
+                                  champions *
+                                </FieldLabel>
+                                <MultiSelect
+                                  value={selected}
+                                  id="contestants"
+                                  options={options}
+                                  maxCount={0}
+                                  onValueChange={(value) => {
+                                    setSelected(value);
+                                  }}
+                                  responsive={true}
+                                  hideSelectAll={true}
+                                />
+                              </Field>
+                            </main>
+                            <DialogFooter>
+                              <section className="flex justify-between w-full">
+                                <div className="ml-auto flex gap-2">
+                                  <DialogClose asChild>
+                                    <Button
+                                      variant="outline"
+                                      className={"cursor-pointer"}
+                                    >
+                                      Annuler
+                                    </Button>
+                                  </DialogClose>
+                                  <DialogClose asChild>
+                                    <Button
+                                      disabled={
+                                        selected.length !=
+                                        elem.numberOfContestantByTeam
+                                      }
+                                      onClick={() =>
+                                        enroll(
+                                          elem._id,
+                                          elem.numberOfContestantMax,
+                                          elem.numberOfContestantByTeam,
+                                        )
+                                      }
+                                      type="submit"
+                                      className={"cursor-pointer"}
+                                    >
+                                      Sauvegarder
+                                    </Button>
+                                  </DialogClose>
+                                </div>
+                              </section>
+                            </DialogFooter>
+                          </DialogContent>
+                        )}
+                      </Dialog>
+                    );
+                  } else {
+                    return null;
+                  }
                 })}
           </section>
         </main>
