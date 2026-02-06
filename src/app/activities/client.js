@@ -359,12 +359,12 @@ export default function ClientPage({
                   console.log(
                     userInfo == null ||
                       myTeamInfo == null ||
-                      userInfo.campus == elem.campus,
+                      userInfo.location == elem.campus,
                   );
                   if (
                     userInfo == null ||
                     myTeamInfo == null ||
-                    userInfo.campus == elem.campus
+                    userInfo.location == elem.campus
                   ) {
                     return (
                       <Dialog key={idx}>
