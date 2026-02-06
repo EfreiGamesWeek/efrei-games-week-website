@@ -66,7 +66,6 @@ export default function ClientPage({
         ).then((resp) => resp.json());
         setMyTeamInfo(responseTeam.body);
         if (responseTeam.body == null) return;
-        console.log(responseTeam.body);
         const options = [
           {
             value: response.name + " " + response.surname,
@@ -353,6 +352,7 @@ export default function ClientPage({
           </Dialog>
 
           <section className="flex gap-4 w-full justify-center mb-8 flex-wrap">
+            {console.log(userInfo, myTeamInfo, activities, enrollByActivityID)}
             {activities == null && Object.keys(enrollByActivityID) != 0
               ? null
               : activities.map((elem, idx) => {
